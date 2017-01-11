@@ -13,15 +13,15 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
          print("长按图片啦:\(index)")
     }
     func imageViewerViewController(_ viewController: YUImageViewerViewController, downloadImageAt index: Int, imageView: UIImageView, complete: @escaping (Bool) -> ()) {
-           imageView.sd_setImage(with: models[index].url, placeholderImage: nil, options: []) { (image, error, type, url) in
-            if let _=error
-            {
-                complete(false)
-            }else
-            {
-                complete(true)
-            }
-        }
+//           imageView.sd_setImage(with: models[index].url, placeholderImage: nil, options: []) { (image, error, type, url) in
+//            if let _=error
+//            {
+//                complete(false)
+//            }else
+//            {
+//                complete(true)
+//            }
+//        }
     
     }
     var models=[YUImageViewerModel]()
