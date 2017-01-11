@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A204B001E23D0F1000A4185 /* YULoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A204AFF1E23D0F1000A4185 /* YULoadingView.swift */; };
+		9A2192D11E26363C005DF708 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2192D01E26363C005DF708 /* CollectionViewCell.swift */; };
+		9A21939E1E266A36005DF708 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9A21939D1E266A36005DF708 /* .gitignore */; };
 		9A2287EA1E227F6E00E50057 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2287E91E227F6E00E50057 /* AppDelegate.swift */; };
 		9A2287EC1E227F6E00E50057 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2287EB1E227F6E00E50057 /* ViewController.swift */; };
 		9A2287EF1E227F6E00E50057 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A2287ED1E227F6E00E50057 /* Main.storyboard */; };
@@ -14,6 +17,10 @@
 		9A2287F41E227F6E00E50057 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A2287F21E227F6E00E50057 /* LaunchScreen.storyboard */; };
 		9A2287FF1E227F6E00E50057 /* YUImageViewerDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2287FE1E227F6E00E50057 /* YUImageViewerDemoTests.swift */; };
 		9A22880A1E227F6E00E50057 /* YUImageViewerDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2288091E227F6E00E50057 /* YUImageViewerDemoUITests.swift */; };
+		9A2288191E227FA400E50057 /* YUImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2288181E227FA400E50057 /* YUImageViewerViewController.swift */; };
+		9A2953961E24A5770091714E /* YUTransitonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2953951E24A5770091714E /* YUTransitonAnimation.swift */; };
+		9ABAA9131E2282B200E18FF4 /* YUImageViewerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABAA9121E2282B200E18FF4 /* YUImageViewerCell.swift */; };
+		9ABAA9151E22A2E700E18FF4 /* YUImageViewerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABAA9141E22A2E700E18FF4 /* YUImageViewerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A204AFF1E23D0F1000A4185 /* YULoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YULoadingView.swift; sourceTree = "<group>"; };
+		9A2192D01E26363C005DF708 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		9A2193171E2656DA005DF708 /* YUImageViewerDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YUImageViewerDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		9A21939D1E266A36005DF708 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		9A2287E61E227F6E00E50057 /* YUImageViewerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YUImageViewerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2287E91E227F6E00E50057 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A2287EB1E227F6E00E50057 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +58,10 @@
 		9A2288051E227F6E00E50057 /* YUImageViewerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YUImageViewerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2288091E227F6E00E50057 /* YUImageViewerDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YUImageViewerDemoUITests.swift; sourceTree = "<group>"; };
 		9A22880B1E227F6E00E50057 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A2288181E227FA400E50057 /* YUImageViewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YUImageViewerViewController.swift; sourceTree = "<group>"; };
+		9A2953951E24A5770091714E /* YUTransitonAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YUTransitonAnimation.swift; sourceTree = "<group>"; };
+		9ABAA9121E2282B200E18FF4 /* YUImageViewerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YUImageViewerCell.swift; sourceTree = "<group>"; };
+		9ABAA9141E22A2E700E18FF4 /* YUImageViewerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YUImageViewerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +92,9 @@
 		9A2287DD1E227F6E00E50057 = {
 			isa = PBXGroup;
 			children = (
+				9A21939D1E266A36005DF708 /* .gitignore */,
+				9A2193171E2656DA005DF708 /* YUImageViewerDemo-Bridging-Header.h */,
+				9A2288171E227F7500E50057 /* YUImageViewer */,
 				9A2287E81E227F6E00E50057 /* YUImageViewerDemo */,
 				9A2287FD1E227F6E00E50057 /* YUImageViewerDemoTests */,
 				9A2288081E227F6E00E50057 /* YUImageViewerDemoUITests */,
@@ -103,6 +121,7 @@
 				9A2287F01E227F6E00E50057 /* Assets.xcassets */,
 				9A2287F21E227F6E00E50057 /* LaunchScreen.storyboard */,
 				9A2287F51E227F6E00E50057 /* Info.plist */,
+				9A2192D01E26363C005DF708 /* CollectionViewCell.swift */,
 			);
 			path = YUImageViewerDemo;
 			sourceTree = "<group>";
@@ -123,6 +142,18 @@
 				9A22880B1E227F6E00E50057 /* Info.plist */,
 			);
 			path = YUImageViewerDemoUITests;
+			sourceTree = "<group>";
+		};
+		9A2288171E227F7500E50057 /* YUImageViewer */ = {
+			isa = PBXGroup;
+			children = (
+				9A2288181E227FA400E50057 /* YUImageViewerViewController.swift */,
+				9ABAA9121E2282B200E18FF4 /* YUImageViewerCell.swift */,
+				9ABAA9141E22A2E700E18FF4 /* YUImageViewerModel.swift */,
+				9A204AFF1E23D0F1000A4185 /* YULoadingView.swift */,
+				9A2953951E24A5770091714E /* YUTransitonAnimation.swift */,
+			);
+			path = YUImageViewer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +224,7 @@
 				TargetAttributes = {
 					9A2287E51E227F6E00E50057 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					9A2287F91E227F6E00E50057 = {
@@ -232,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A21939E1E266A36005DF708 /* .gitignore in Resources */,
 				9A2287F41E227F6E00E50057 /* LaunchScreen.storyboard in Resources */,
 				9A2287F11E227F6E00E50057 /* Assets.xcassets in Resources */,
 				9A2287EF1E227F6E00E50057 /* Main.storyboard in Resources */,
@@ -260,7 +293,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A2287EC1E227F6E00E50057 /* ViewController.swift in Sources */,
+				9A204B001E23D0F1000A4185 /* YULoadingView.swift in Sources */,
+				9A2192D11E26363C005DF708 /* CollectionViewCell.swift in Sources */,
+				9ABAA9131E2282B200E18FF4 /* YUImageViewerCell.swift in Sources */,
+				9A2288191E227FA400E50057 /* YUImageViewerViewController.swift in Sources */,
+				9ABAA9151E22A2E700E18FF4 /* YUImageViewerModel.swift in Sources */,
 				9A2287EA1E227F6E00E50057 /* AppDelegate.swift in Sources */,
+				9A2953961E24A5770091714E /* YUTransitonAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,10 +449,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = YUImageViewerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yu.YUImageViewerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YUImageViewerDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -422,10 +465,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = YUImageViewerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yu.YUImageViewerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "YUImageViewerDemo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -503,6 +549,7 @@
 				9A2288101E227F6E00E50057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9A2288111E227F6E00E50057 /* Build configuration list for PBXNativeTarget "YUImageViewerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +558,7 @@
 				9A2288131E227F6E00E50057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9A2288141E227F6E00E50057 /* Build configuration list for PBXNativeTarget "YUImageViewerDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +567,7 @@
 				9A2288161E227F6E00E50057 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
