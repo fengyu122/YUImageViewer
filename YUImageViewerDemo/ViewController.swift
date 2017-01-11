@@ -100,6 +100,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     
     //下载图片的代理。你可以选择你项目中的图片下载框架。下载完成后执行 complete() 这个closure。传true表示下载成功 传false表示下载失败。
     func imageViewerViewController(_ viewController: YUImageViewerViewController, downloadImageAt index: Int, imageView: UIImageView, complete: @escaping (Bool) -> ()) {
+       /*
         // 使用SDWebImage下载代码实例
         imageView.sd_setImage(with: models[index].url, placeholderImage: models[index].placeholder, options: []) { (image, error, type, url) in
             if let _=error
@@ -111,7 +112,7 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
                 complete(true)
             }
         }
-        
+        */
         
     }
     
