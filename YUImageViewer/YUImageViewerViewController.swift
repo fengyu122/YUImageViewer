@@ -28,7 +28,7 @@ import UIKit
 
 @objc   protocol YUImageViewerViewControllerProtocol:NSObjectProtocol {
     @objc  optional func  imageViewerViewController(_ viewController:YUImageViewerViewController , onLongPressAt index:Int ,image:UIImage?)
-    @objc  optional func imageViewerViewController(_ viewController:YUImageViewerViewController , downloadImageAt index:Int , imageView:UIImageView , complete:@escaping DownloadCompleteBlock)
+    func imageViewerViewController(_ viewController:YUImageViewerViewController , downloadImageAt index:Int , imageView:UIImageView , complete:@escaping DownloadCompleteBlock)
 }
 typealias DownloadCompleteBlock = ((_ sucess:Bool)->())
 public class YUImageViewerViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIViewControllerTransitioningDelegate,YUImageViewerCellProtocol {
@@ -43,7 +43,18 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         collectionView.delegate=self
         return collectionView
         }()
+    private  lazy var pageControl:UIPageControl={ [unowned self] in
+        let pageControl=UIPageControl.init()
+        pageControl.pageIndicatorTintColor=UIColor.gray
+        pageControl.currentPageIndicatorTintColor=UIColor.white
+        pageControl.translatesAutoresizingMaskIntoConstraints=false
+        pageControl.hidesForSinglePage=true
+        pageControl.isEnabled=false
+        return pageControl
+    }()
+
     private  let  transitonAnimation=YUTransitonAnimation.init()
+    
     override public var shouldAutorotate: Bool
     {
         return true
@@ -55,21 +66,38 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
     
     override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.frame=view.bounds
         collectionView.selectItem(at: IndexPath.init(row: currentSelect, section: 0), animated: false, scrollPosition: .left)
     }
     var models=[YUImageViewerModel]()
+        {
+            didSet
+            {
+                pageControl.numberOfPages=models.count
+        }
+    }
     override public func viewDidLoad() {
         super.viewDidLoad()
         automaticallyAdjustsScrollViewInsets=false
         view.addSubview(collectionView)
+        
+        view.addSubview(pageControl)
+        view.addConstraint(NSLayoutConstraint.init(item: pageControl, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint.init(item: pageControl, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -10))
+        pageControl.numberOfPages=models.count
+        pageControl.currentPage=currentSelect
+        
     }
     private var currentSelect:Int=0
+        {
+            didSet
+            {
+                pageControl.currentPage=currentSelect
+        }
+    }
     weak var delegate:YUImageViewerViewControllerProtocol?
-    convenience init(models:[YUImageViewerModel],currentSelect:Int,delegate:YUImageViewerViewControllerProtocol?)
+    convenience init(models:[YUImageViewerModel],currentSelect:Int,delegate:YUImageViewerViewControllerProtocol)
     {
         self.init()
         self.models=models
@@ -129,8 +157,7 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
     func imageViewerCell(longPressActionAt index: Int, image: UIImage?) {
         self.delegate?.imageViewerViewController?(self, onLongPressAt: index, image: image)
     }
-    func imageViewerCell(downloadImageAt index: Int, imageView: UIImageView, complete: @escaping DownloadCompleteBlock) -> Bool {
-        self.delegate?.imageViewerViewController?(self, downloadImageAt: index, imageView: imageView, complete: complete)
-        return true
+    func imageViewerCell(downloadImageAt index: Int, imageView: UIImageView, complete: @escaping DownloadCompleteBlock) {
+         self.delegate?.imageViewerViewController(self, downloadImageAt: index, imageView: imageView, complete: complete)
     }
 }

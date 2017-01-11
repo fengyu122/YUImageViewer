@@ -38,7 +38,7 @@ enum YUImageState {
 protocol YUImageViewerCellProtocol:NSObjectProtocol {
     func imageViewerCell(singleTapActionAt index:Int)
     func imageViewerCell(longPressActionAt index:Int, image:UIImage?)
-    func imageViewerCell(downloadImageAt index:Int , imageView:UIImageView , complete:@escaping DownloadCompleteBlock)->Bool
+    func imageViewerCell(downloadImageAt index:Int , imageView:UIImageView , complete:@escaping DownloadCompleteBlock)
 }
 
 class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
@@ -127,28 +127,23 @@ class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
         }
         
     }
+    
+    lazy var completeDownloadBlock:DownloadCompleteBlock={
+        [weak self] (sucess)  in
+        if sucess
+        {
+            self?.state=YUImageState.downloadFinish
+        }else
+        {
+            self?.state=YUImageState.downloadFail
+        }
+    }
+    
     private func downloadImage()
     {
-        
-        
+    
         state=YUImageState.downloading
-        
-        let completeDownloadBlock:DownloadCompleteBlock={
-            [weak self] (sucess)  in
-            if sucess
-            {
-                self?.state=YUImageState.downloadFinish
-            }else
-            {
-                self?.state=YUImageState.downloadFail
-            }
-        }
-        
-        if let delegate=self.delegate,delegate.imageViewerCell(downloadImageAt: index, imageView: imageView, complete: completeDownloadBlock)
-        {
-            return
-        }
-        
+        delegate?.imageViewerCell(downloadImageAt: index, imageView: imageView, complete: completeDownloadBlock)
     }
     var  minimumZoomScale:CGFloat = 1.0
         {
