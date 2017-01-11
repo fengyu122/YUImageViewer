@@ -54,7 +54,8 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
     }()
 
     private  let  transitonAnimation=YUTransitonAnimation.init()
-    
+    private var lastOrientation:UIDeviceOrientation?
+    private var canUpdateCurrentIndex=true
     override public var shouldAutorotate: Bool
     {
         return true
@@ -69,6 +70,7 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.frame=view.bounds
         collectionView.selectItem(at: IndexPath.init(row: currentSelect, section: 0), animated: false, scrollPosition: .left)
+        canUpdateCurrentIndex=true
     }
     var models=[YUImageViewerModel]()
         {
@@ -142,8 +144,17 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         return view.bounds.size
     }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetX=scrollView.contentOffset.x
-        currentSelect=Int(offsetX/scrollView.bounds.width+0.5)
+        if lastOrientation == UIDevice.current.orientation,canUpdateCurrentIndex
+        {
+            let offsetX=scrollView.contentOffset.x
+            currentSelect=Int(offsetX/scrollView.bounds.width+0.5)
+        }else
+        {
+            lastOrientation=UIDevice.current.orientation
+            canUpdateCurrentIndex=false
+        }
+      
+        
        
     }
     func imageViewerCell(singleTapActionAt index: Int) {
