@@ -26,8 +26,12 @@
 
 import UIKit
 
-@objc   protocol YUImageViewerViewControllerProtocol:NSObjectProtocol {
+@objc   protocol YUImageViewerViewControllerDelegate:NSObjectProtocol {
     @objc  optional func  imageViewerViewController(_ viewController:YUImageViewerViewController , onLongPressAt index:Int ,image:UIImage?)
+    @objc optional func  imageViewerViewController(_ viewController:YUImageViewerViewController, didShowAt index:Int)
+    @objc optional func  imageViewerViewController(_ viewController:YUImageViewerViewController, willShowAt index:Int)
+    @objc optional func imageViewerViewController(_ viewController:YUImageViewerViewController, didDismissAt index:Int)
+    @objc optional func imageViewerViewController(_ viewController:YUImageViewerViewController, willDismissAt index:Int)
     func imageViewerViewController(_ viewController:YUImageViewerViewController , downloadImageAt index:Int , imageView:UIImageView , complete:@escaping DownloadCompleteBlock)
 }
 typealias DownloadCompleteBlock = ((_ sucess:Bool)->())
@@ -41,6 +45,9 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         collectionView.isPagingEnabled=true
         collectionView.dataSource=self
         collectionView.delegate=self
+        collectionView.showsHorizontalScrollIndicator=false
+        collectionView.showsVerticalScrollIndicator=false
+        collectionView.translatesAutoresizingMaskIntoConstraints=false
         return collectionView
         }()
     private  lazy var pageControl:UIPageControl={ [unowned self] in
@@ -51,10 +58,15 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         pageControl.hidesForSinglePage=true
         pageControl.isEnabled=false
         return pageControl
-    }()
-
+        }()
+    private var hideNotCurrentCell=false
+        {
+        didSet
+        {
+            collectionView.reloadData()
+        }
+    }
     private  let  transitonAnimation=YUTransitonAnimation.init()
-    private var lastOrientation:UIDeviceOrientation?
     private var canUpdateCurrentIndex=true
     override public var shouldAutorotate: Bool
     {
@@ -65,23 +77,17 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         return UIInterfaceOrientationMask.allButUpsideDown
     }
     
-    override public func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        collectionView.collectionViewLayout.invalidateLayout()
-        collectionView.frame=view.bounds
-        collectionView.selectItem(at: IndexPath.init(row: currentSelect, section: 0), animated: false, scrollPosition: .left)
-        canUpdateCurrentIndex=true
-    }
     var models=[YUImageViewerModel]()
         {
-            didSet
-            {
-                pageControl.numberOfPages=models.count
+        didSet
+        {
+            pageControl.numberOfPages=models.count
         }
     }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
-        automaticallyAdjustsScrollViewInsets=false
+        view.backgroundColor=UIColor.black
         view.addSubview(collectionView)
         
         view.addSubview(pageControl)
@@ -90,22 +96,70 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         pageControl.numberOfPages=models.count
         pageControl.currentPage=currentSelect
         
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+        
+        collectionView.selectItem(at: IndexPath.init(row: currentSelect, section: 0), animated: false, scrollPosition: .left)
+        
+        UIApplication.shared.setStatusBarHidden(true, with: .fade)
+        
+    }
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.delegate?.imageViewerViewController?(self, willShowAt: currentSelect)
+    }
+    public override func viewDidDisappear(_ animated: Bool) {
+         super.viewDidDisappear(animated)
+         self.delegate?.imageViewerViewController?(self, didDismissAt: self.currentSelect)
+    }
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+         self.delegate?.imageViewerViewController?(self, willDismissAt: currentSelect)
+    }
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.delegate?.imageViewerViewController?(self, didShowAt: currentSelect)
+    }
+    
+    public override var prefersStatusBarHidden: Bool
+    {
+        return true
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        canUpdateCurrentIndex=false
+        hideNotCurrentCell=true
+        
+        coordinator.animate(alongsideTransition: { [unowned self] (ctx) in
+            self.collectionView.collectionViewLayout.invalidateLayout()
+            self.collectionView.frame=CGRect.init(origin: CGPoint.zero, size: size)
+            self.collectionView.selectItem(at: IndexPath.init(row: self.currentSelect, section: 0), animated: false, scrollPosition: .left)
+            
+        }) { [unowned self]  (ctx)  in
+            self.canUpdateCurrentIndex=true
+            self.hideNotCurrentCell=false
+            
+        }
     }
     private var currentSelect:Int=0
         {
-            didSet
-            {
-                pageControl.currentPage=currentSelect
+        didSet
+        {
+            pageControl.currentPage=currentSelect
         }
     }
-    weak var delegate:YUImageViewerViewControllerProtocol?
-    convenience init(models:[YUImageViewerModel],currentSelect:Int,delegate:YUImageViewerViewControllerProtocol)
+    weak var delegate:YUImageViewerViewControllerDelegate?
+    convenience init(models:[YUImageViewerModel],currentSelect:Int,delegate:YUImageViewerViewControllerDelegate)
     {
         self.init()
         self.models=models
         self.delegate=delegate
         self.currentSelect=currentSelect
         transitioningDelegate=self
+        
         
     }
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -132,6 +186,7 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         cell.delegate=self
         cell.index=indexPath.item
         cell.model=models[indexPath.row]
+        cell.isHidden=hideNotCurrentCell && currentSelect != indexPath.row
         return cell
     }
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -141,21 +196,14 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         return 0
     }
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return view.bounds.size
+        return collectionView.bounds.size
     }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if lastOrientation == UIDevice.current.orientation,canUpdateCurrentIndex
+        if canUpdateCurrentIndex
         {
             let offsetX=scrollView.contentOffset.x
             currentSelect=Int(offsetX/scrollView.bounds.width+0.5)
-        }else
-        {
-            lastOrientation=UIDevice.current.orientation
-            canUpdateCurrentIndex=false
         }
-      
-        
-       
     }
     func imageViewerCell(singleTapActionAt index: Int) {
         dismiss(animated: true) { [unowned self] in
@@ -163,12 +211,13 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
             {
                 model.clearState()
             }
+           
         }
     }
     func imageViewerCell(longPressActionAt index: Int, image: UIImage?) {
         self.delegate?.imageViewerViewController?(self, onLongPressAt: index, image: image)
     }
     func imageViewerCell(downloadImageAt index: Int, imageView: UIImageView, complete: @escaping DownloadCompleteBlock) {
-         self.delegate?.imageViewerViewController(self, downloadImageAt: index, imageView: imageView, complete: complete)
+        self.delegate?.imageViewerViewController(self, downloadImageAt: index, imageView: imageView, complete: complete)
     }
 }
