@@ -1,5 +1,5 @@
 # YUImageViewer
-***一款类似于微信QQ的大图查看器***
+**一款类似于微信QQ的大图查看器**
 
 ![](https://raw.githubusercontent.com/fengyu122/YUImageViewer/master/screenshot.gif)
 
@@ -33,11 +33,11 @@ let vc=YUImageViewerViewController(models: models, currentSelect: index delegate
 present(vc, animated: true, completion: nil)
 ~~~
 
-这个框架并不带有图片下载功能。你还需要用你项目中的图片下载框架来实现图片的下载功能。
+***这个框架并不带有图片下载功能。你还需要用你项目中的图片下载框架来实现图片的下载功能。***
 
 ### YUImageViewerViewControllerDelegate
 
-下载图片的代理。必须实现。你可以选择你项目中的图片下载框架。下载完成后执行 complete() 这个closure。传true表示下载成功 传false表示下载失败
+下载图片的代理。**必须实现**。你可以选择你项目中的图片下载框架。**下载完成后执行 complete() 这个closure。传true表示下载成功 传false表示下载失败**
 ~~~
       func imageViewerViewController(_ viewController: YUImageViewerViewController, downloadImageAt index: Int, imageView: UIImageView, complete: @escaping (Bool) -> ()) {
 
@@ -77,7 +77,7 @@ present(vc, animated: true, completion: nil)
       }
 ~~~
 
-其它请根据需要决定是否实现
+*其它请根据需要决定是否实现*
 ~~~
 
  func imageViewerViewController(_ viewController: YUImageViewerViewController, onLongPressAt index: Int, image: UIImage?) {
@@ -98,10 +98,10 @@ present(vc, animated: true, completion: nil)
 ~~~
 
 ## Contact
-QQ:535920015
+***QQ:535920015***
 
 如您在使用过程中有任何问题或者有任何建议，请通过QQ或者在github中提出issue来联系我们
 
 ## License
 
-YUImageViewer is licensed under the MIT license.
+*YUImageViewer is licensed under the MIT license.*
