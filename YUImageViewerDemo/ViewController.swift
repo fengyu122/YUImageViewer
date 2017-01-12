@@ -121,9 +121,7 @@
                 }
                 catch
                     {
-                        DispatchQueue.main.async(execute: {
-                            complete(false)//下载失败调用
-                        })
+                        complete(false)//下载失败调用
                 }
                 
                 }

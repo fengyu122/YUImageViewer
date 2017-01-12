@@ -132,13 +132,32 @@ class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
     
     lazy var completeDownloadBlock:DownloadCompleteBlock={
         [weak self] (sucess)  in
-        if sucess
+        
+        
+        if Thread.current == Thread.main
         {
-            self?.state=YUImageState.downloadFinish
+            if sucess
+            {
+                self?.state=YUImageState.downloadFinish
+            }else
+            {
+                self?.state=YUImageState.downloadFail
+            }
+
         }else
         {
-            self?.state=YUImageState.downloadFail
+            DispatchQueue.main.async(execute: { 
+                 [weak self] in
+                if sucess
+                {
+                    self?.state=YUImageState.downloadFinish
+                }else
+                {
+                    self?.state=YUImageState.downloadFail
+                }
+            })
         }
+        
     }
     
     private func downloadImage()
