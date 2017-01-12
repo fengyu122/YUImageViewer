@@ -1,5 +1,5 @@
 # YUImageViewer
-*一款类似于微信QQ的大图查看器*
+***一款类似于微信QQ的大图查看器***
 
 ![](https://raw.githubusercontent.com/fengyu122/YUImageViewer/master/screenshot.gif)
 
@@ -21,14 +21,14 @@ model1.placeholder=imageView.image
 //也就是那张小图。可选。nil值将以淡入淡出的方式显示
 model1.frame=view.convert(cell.imageView.frame, from: cell.contentView)
 //frame是点击View相对于当前ViewController的！！！
-//若该View的superView不是ViewController的View。请使用covert函数转换。nil值将以淡入淡出的效果显示
+//若该View的superView不是ViewController的View。请使用convert函数转换。nil值将以淡入淡出的效果显示
 
 let model2=YUImageViewerModel()
 model2.placeholder=...
 mdoel2.frame=...
 
 let models=[model1,model2]
-let vc=YUImageViewerViewController.init(models: models, currentSelect: indexPath.item, delegate: self)
+let vc=YUImageViewerViewController(models: models, currentSelect: index delegate: self)
 //currentSelect表示一打开就显示第几张图片
 present(vc, animated: true, completion: nil)
 ~~~
@@ -54,7 +54,8 @@ present(vc, animated: true, completion: nil)
               catch
                   {
                       complete(false)//下载失败调用
-              }
+                      //若下载失败可以在这里添加提示的代码。框架并不会提示
+               }
 
               }
 
@@ -97,9 +98,9 @@ present(vc, animated: true, completion: nil)
 ~~~
 
 ## Contact
-
 QQ:535920015
->如在使用过程中有任何问题，请通过QQ或者在github中提出issue来联系我们
+
+如您在使用过程中有任何问题或者有任何建议，请通过QQ或者在github中提出issue来联系我们
 
 ## License
 
