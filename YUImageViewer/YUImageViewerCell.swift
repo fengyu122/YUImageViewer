@@ -67,6 +67,8 @@ class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
         scrollView.minimumZoomScale=self.minimumZoomScale
         scrollView.maximumZoomScale=self.maximumZoomScale
         scrollView.addSubview(self.imageView)
+        scrollView.showsHorizontalScrollIndicator=false
+        scrollView.showsVerticalScrollIndicator=false
         
         let singleTapGestureRecognizer=UITapGestureRecognizer.init(target: self, action: #selector(YUImageViewerCell.singleTapGestureRecognizerHandle(_:)))
         let doubleTapGestureRecognizer=UITapGestureRecognizer.init(target: self, action: #selector(YUImageViewerCell.doubleTapGestureRecognizerHandle(_:)))
@@ -201,7 +203,6 @@ class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(scrollView)
-        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(YUImageViewerCell.rotateScreenAction(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
@@ -311,7 +312,6 @@ class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
     deinit {
         imageView.removeObserver(self, forKeyPath: "image")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        UIDevice.current.endGeneratingDeviceOrientationNotifications()
     }
     
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,YUImageViewerViewControllerProtocol {
+class ViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,YUImageViewerViewControllerDelegate {
 
     var models=[YUImageViewerModel]()
     override func viewDidLoad() {
@@ -21,6 +21,11 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         collectionView.dataSource=self
         collectionView.backgroundColor=UIColor.white
         view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints=false
+        view.addConstraint(NSLayoutConstraint.init(item: collectionView, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint.init(item: collectionView, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint.init(item: collectionView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint.init(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
         initModels()
 
        
@@ -51,9 +56,14 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         model6.placeholder=UIImage.init(named: "pic6")
         model6.url=URL.init(string: "http://img3.utuku.china.com/640x0/news/20170111/3bed5942-803e-4b0d-ad34-a90f022d7970.jpg")
         
-        models+=[model1,model2,model3,model4,model5,model6]
+        let model7=YUImageViewerModel()
+        model7.placeholder=UIImage.init(named: "pic7")
+        model7.url=URL.init(string: "http://images.photoshopcn.com/h000/h91/img200801101151310.jpg")
+        
+        models+=[model1,model2,model3,model4,model5,model6,model7]
 
     }
+    //MARK: -UICollectionViewDelegate
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -89,17 +99,14 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         let vc=YUImageViewerViewController.init(models: models, currentSelect: indexPath.item, delegate: self)
         present(vc, animated: true, completion: nil)
     }
-   
-    //在这里。你可以对长按的图片进行操作。比如保存图片或者分享
-    func imageViewerViewController(_ viewController: YUImageViewerViewController, onLongPressAt index: Int, image: UIImage?) {
-        print("长按图片啦:\(index)")
-    
-        
-    }
+
     
     
-    //下载图片的代理。你可以选择你项目中的图片下载框架。下载完成后执行 complete() 这个closure。传true表示下载成功 传false表示下载失败。
+    // MARK: - YUImageViewerViewControllerDelegate
+    
+    //下载图片的代理。必须实现。你可以选择你项目中的图片下载框架。下载完成后执行 complete() 这个closure。传true表示下载成功 传false表示下载失败
     func imageViewerViewController(_ viewController: YUImageViewerViewController, downloadImageAt index: Int, imageView: UIImageView, complete: @escaping (Bool) -> ()) {
+       
         // 使用SDWebImage下载代码实例
         imageView.sd_setImage(with: models[index].url, placeholderImage: models[index].placeholder, options: []) { (image, error, type, url) in
             if let _=error
@@ -115,9 +122,23 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //在这里。你可以对长按的图片进行操作。比如保存图片或者分享
+    func imageViewerViewController(_ viewController: YUImageViewerViewController, onLongPressAt index: Int, image: UIImage?) {
+        print("长按图片啦:\(index)")
+        
+        
+    }
+    func imageViewerViewController(_ viewController: YUImageViewerViewController, didShowAt index: Int) {
+        
+    }
+    func imageViewerViewController(_ viewController: YUImageViewerViewController, willShowAt index: Int) {
+        
+    }
+    func imageViewerViewController(_ viewController: YUImageViewerViewController, didDismissAt index: Int) {
+        
+    }
+    func imageViewerViewController(_ viewController: YUImageViewerViewController, willDismissAt index: Int) {
+        
     }
   
 
