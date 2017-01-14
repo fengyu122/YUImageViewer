@@ -27,12 +27,12 @@
 import UIKit
 
 @objc   protocol YUImageViewerViewControllerDelegate:NSObjectProtocol {
-    @objc  optional func  imageViewerViewController(_ viewController:YUImageViewerViewController , onLongPressAt index:Int ,image:UIImage?)
-    @objc optional func  imageViewerViewController(_ viewController:YUImageViewerViewController, didShowAt index:Int)
-    @objc optional func  imageViewerViewController(_ viewController:YUImageViewerViewController, willShowAt index:Int)
-    @objc optional func imageViewerViewController(_ viewController:YUImageViewerViewController, didDismissAt index:Int)
-    @objc optional func imageViewerViewController(_ viewController:YUImageViewerViewController, willDismissAt index:Int)
-    func imageViewerViewController(_ viewController:YUImageViewerViewController , downloadImageAt index:Int , imageView:UIImageView , complete:@escaping DownloadCompleteBlock)
+    @objc  optional func  imageViewerViewController(_ viewController:YUImageViewerViewController , onLongPressAt index:Int ,image:UIImage? ,model:YUImageViewerModel)
+    @objc optional func  imageViewerViewController(_ viewController:YUImageViewerViewController, didShowAt index:Int ,model :YUImageViewerModel)
+    @objc optional func  imageViewerViewController(_ viewController:YUImageViewerViewController, willShowAt index:Int ,model:YUImageViewerModel)
+    @objc optional func imageViewerViewController(_ viewController:YUImageViewerViewController, didDismissAt index:Int ,model:YUImageViewerModel)
+    @objc optional func imageViewerViewController(_ viewController:YUImageViewerViewController, willDismissAt index:Int ,model:YUImageViewerModel)
+    func imageViewerViewController(_ viewController:YUImageViewerViewController , downloadImageAt index:Int , imageView:UIImageView , model:YUImageViewerModel,complete:@escaping DownloadCompleteBlock)
 }
 typealias DownloadCompleteBlock = ((_ sucess:Bool)->())
 public class YUImageViewerViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIViewControllerTransitioningDelegate,YUImageViewerCellProtocol {
@@ -105,19 +105,19 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.delegate?.imageViewerViewController?(self, willShowAt: currentSelect)
+        self.delegate?.imageViewerViewController?(self, willShowAt: currentSelect ,model:models[currentSelect])
     }
     public override func viewDidDisappear(_ animated: Bool) {
          super.viewDidDisappear(animated)
-         self.delegate?.imageViewerViewController?(self, didDismissAt: self.currentSelect)
+        self.delegate?.imageViewerViewController?(self, didDismissAt: self.currentSelect,model:models[currentSelect])
     }
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-         self.delegate?.imageViewerViewController?(self, willDismissAt: currentSelect)
+        self.delegate?.imageViewerViewController?(self, willDismissAt: currentSelect,model:models[currentSelect])
     }
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.delegate?.imageViewerViewController?(self, didShowAt: currentSelect)
+        self.delegate?.imageViewerViewController?(self, didShowAt: currentSelect,model:models[currentSelect])
     }
     
     public override var prefersStatusBarHidden: Bool
@@ -215,9 +215,9 @@ public class YUImageViewerViewController: UIViewController,UICollectionViewDataS
         }
     }
     func imageViewerCell(longPressActionAt index: Int, image: UIImage?) {
-        self.delegate?.imageViewerViewController?(self, onLongPressAt: index, image: image)
+        self.delegate?.imageViewerViewController?(self, onLongPressAt: index, image: image ,model:models[index])
     }
     func imageViewerCell(downloadImageAt index: Int, imageView: UIImageView, complete: @escaping DownloadCompleteBlock) {
-        self.delegate?.imageViewerViewController(self, downloadImageAt: index, imageView: imageView, complete: complete)
+        self.delegate?.imageViewerViewController(self, downloadImageAt: index, imageView: imageView, model:models[index],complete: complete)
     }
 }

@@ -74,7 +74,7 @@
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
             cell.render(image: models[indexPath.row].placeholder!)
-            
+       
             return cell
         }
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -105,63 +105,59 @@
         
         
         // MARK: - YUImageViewerViewControllerDelegate
-        
         //下载图片的代理。必须实现。你可以选择你项目中的图片下载框架。下载完成后执行 complete() 这个closure。传true表示下载成功 传false表示下载失败
-        func imageViewerViewController(_ viewController: YUImageViewerViewController, downloadImageAt index: Int, imageView: UIImageView, complete: @escaping (Bool) -> ()) {
-            
+        func imageViewerViewController(_ viewController: YUImageViewerViewController, downloadImageAt index: Int, imageView: UIImageView, model: YUImageViewerModel, complete: @escaping DownloadCompleteBlock) {
             //请使用项目中的图片下载框架进行下载。这里只是简单的实例
             DispatchQueue.global().async {
                 
                 do{
-                    let data=try Data.init(contentsOf: self.models[index].url!)
+                    let data=try Data.init(contentsOf: model.url!)
                     DispatchQueue.main.async(execute: {
                         imageView.image=UIImage.init(data: data)
                         complete(true) //下载成功调用
                     })
                 }
                 catch
-                    {
-                        complete(false)//下载失败调用
+                {
+                    complete(false)//下载失败调用
                 }
                 
-                }
-        
-        
-           // 使用SDWebImage下载代码实例
-            /*
-            imageView.sd_setImage(with: models[index].url, placeholderImage: models[index].placeholder, options: []) { (image, error, type, url) in
-                if let _=error
-                {
-                    complete(false)
-                    //若下载失败可以在这里添加提示的代码。框架并不会提示
-                }else
-                {
-                    complete(true)
-                }
             }
-            */
+            
+            
+            // 使用SDWebImage下载代码实例
+            /*
+             imageView.sd_setImage(with: models[index].url, placeholderImage: models[index].placeholder, options: []) { (image, error, type, url) in
+             if let _=error
+             {
+             complete(false)
+             //若下载失败可以在这里添加提示的代码。框架并不会提示
+             }else
+             {
+             complete(true)
+             }
+             }
+             */
             
         }
-        
-        //在这里。你可以对长按的图片进行操作。比如保存图片或者分享
-        func imageViewerViewController(_ viewController: YUImageViewerViewController, onLongPressAt index: Int, image: UIImage?) {
-            print("长按图片啦:\(index)")
-            
+       
+         //在这里。你可以对长按的图片进行操作。比如保存图片或者分享
+        func imageViewerViewController(_ viewController: YUImageViewerViewController, onLongPressAt index: Int, image: UIImage?, model: YUImageViewerModel) {
+              print("长按图片啦:\(index)")
+        }
+       
+        func imageViewerViewController(_ viewController: YUImageViewerViewController, didShowAt index: Int, model: YUImageViewerModel) {
             
         }
-        func imageViewerViewController(_ viewController: YUImageViewerViewController, didShowAt index: Int) {
+        func imageViewerViewController(_ viewController: YUImageViewerViewController, willShowAt index: Int, model: YUImageViewerModel) {
             
         }
-        func imageViewerViewController(_ viewController: YUImageViewerViewController, willShowAt index: Int) {
+        func imageViewerViewController(_ viewController: YUImageViewerViewController, didDismissAt index: Int, model: YUImageViewerModel) {
             
         }
-        func imageViewerViewController(_ viewController: YUImageViewerViewController, didDismissAt index: Int) {
+        func imageViewerViewController(_ viewController: YUImageViewerViewController, willDismissAt index: Int, model: YUImageViewerModel) {
             
         }
-        func imageViewerViewController(_ viewController: YUImageViewerViewController, willDismissAt index: Int) {
-            
-        }
-      
 
     }
 
