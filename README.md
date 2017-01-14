@@ -110,4 +110,4 @@ func imageViewerViewController(_ viewController: YUImageViewerViewController, wi
 
 ## License
 
-*YUImageViewer is licensed under the MIT license.*
+*YUImageViewer is licensed under the [MIT license](https://github.com/fengyu122/YUImageViewer/blob/master/LICENSE).*
