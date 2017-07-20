@@ -14,11 +14,13 @@
 * 不支持gif图片
 * 类似于QQ微信的效果
 
-## Usage
+## Install
 
 ~~~
 pod YUImageViewer
 ~~~
+
+## Usage
 
 ~~~
 let model1=YUImageViewerModel()
