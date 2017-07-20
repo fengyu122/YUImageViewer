@@ -32,13 +32,13 @@ class YULoadingView: UIView {
         let ctx=UIGraphicsGetCurrentContext()
         let arcCenter=CGPoint.init(x: rect.maxX/2, y: rect.maxY/2)
         let radius=(rect.width-lineWidth)/2
-        let circlePath=UIBezierPath.init(arcCenter: arcCenter, radius: radius, startAngle: 0, endAngle: CGFloat(2*M_PI), clockwise: true)
+        let circlePath=UIBezierPath.init(arcCenter: arcCenter, radius: radius, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
         ctx?.setStrokeColor(UIColor.init(red: 60/255.0, green: 60/255.0, blue: 60/255.0, alpha: 0.9).cgColor)
         ctx?.setLineWidth(lineWidth)
         ctx?.addPath(circlePath.cgPath)
         ctx?.strokePath()
         
-        let sectorialPath=UIBezierPath.init(arcCenter: arcCenter, radius: radius, startAngle: 0, endAngle: CGFloat(2*M_PI*0.36), clockwise: true)
+        let sectorialPath=UIBezierPath.init(arcCenter: arcCenter, radius: radius, startAngle: 0, endAngle: CGFloat(2*Double.pi*0.36), clockwise: true)
         ctx?.setStrokeColor(UIColor.init(red: 241/255.0, green: 241/255.0, blue: 241/255.0, alpha: 1).cgColor)
         ctx?.addPath(sectorialPath.cgPath)
         ctx?.strokePath()
@@ -56,7 +56,7 @@ class YULoadingView: UIView {
     {
         let animation=CAKeyframeAnimation.init(keyPath: "transform")
         animation.keyTimes=[0,0.25,0.5,0.75,1]
-        animation.values=[CATransform3DMakeRotation(0, 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(M_PI_2)), 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(M_PI)), 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(M_PI_2+M_PI)), 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(2*M_PI)), 0, 0, 1)]
+        animation.values=[CATransform3DMakeRotation(0, 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(Double.pi/2.0)), 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(Double.pi)), 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(.pi/2+Double.pi)), 0, 0, 1),CATransform3DMakeRotation(CGFloat(Float(2.0*Double.pi)), 0, 0, 1)]
         animation.fillMode=kCAFillModeForwards
         animation.duration=0.7
         animation.repeatCount=Float.greatestFiniteMagnitude
