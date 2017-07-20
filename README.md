@@ -15,6 +15,11 @@
 * 类似于QQ微信的效果
 
 ## Usage
+
+~~~
+pod YUImageViewer
+~~~
+
 ~~~
 let model1=YUImageViewerModel()
 
