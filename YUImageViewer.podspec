@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "YUImageViewer"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "一款类似于微信QQ的大图查看器"
 
   # This description is used to generate tags and improve search results.
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/fengyu122/YUImageViewer.git", :tag => "0.0.2" }
+  s.source       = { :git => "https://github.com/fengyu122/YUImageViewer.git", :tag => "0.0.3" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
