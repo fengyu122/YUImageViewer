@@ -191,18 +191,18 @@ class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
         return imageView
         
         }()
-    func longPressGestureRecognizerHandle(_ longPressGestureRecognize: UILongPressGestureRecognizer)
+    @objc func longPressGestureRecognizerHandle(_ longPressGestureRecognize: UILongPressGestureRecognizer)
     {
         if longPressGestureRecognize.state == UIGestureRecognizerState.began,state == YUImageState.downloadFinish
         {
             self.delegate?.imageViewerCell(longPressActionAt: index,image:imageView.image)
         }
     }
-    func singleTapGestureRecognizerHandle(_ tapGestureRecognizer:UITapGestureRecognizer)
+    @objc func singleTapGestureRecognizerHandle(_ tapGestureRecognizer:UITapGestureRecognizer)
     {
         self.delegate?.imageViewerCell(singleTapActionAt: index)
     }
-    func doubleTapGestureRecognizerHandle(_ tapGestureRecognizer:UITapGestureRecognizer)
+    @objc func doubleTapGestureRecognizerHandle(_ tapGestureRecognizer:UITapGestureRecognizer)
     {
         if state != YUImageState.downloadFinish
         {
@@ -310,7 +310,7 @@ class YUImageViewerCell: UICollectionViewCell,UIScrollViewDelegate {
             downloadFinishAction()
         }
     }
-    func rotateScreenAction(_ notification:Notification)
+    @objc func rotateScreenAction(_ notification:Notification)
     {
         let device = UIDevice.current
         switch device.orientation {
